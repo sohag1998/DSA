@@ -1,0 +1,779 @@
+//Insert in array
+#include<iostream>
+
+using namespace std;
+void printArray(int LA[], int len){
+    for(int i =0; i<len; i++){
+        cout <<"LA["<<i<< "]: " << LA[i] << endl;
+    }
+    cout << endl;
+}
+int main(){
+    int LA[1000];
+    
+    int n;
+    cout << "Enter value of n: ";
+    cin >> n;
+    cout << "\nEnter the array element: ";
+    for(int i=0; i<n; i++){
+        cin >> LA[i];
+    }
+    cout << "\nThe array is: \n";
+    printArray(LA, n);
+    int index, value;
+    cout << "Enter the of index: ";
+    cin >> index;
+    cout << "Enter the of value: ";
+    cin >> value;
+    int j = n;
+    while(j > index){
+        LA[j] = LA[j-1];
+        j--;
+    }
+    LA[index] = value;
+    cout << "\nArray after insert element: \n";
+    printArray(LA, n+1);
+
+    cout <<endl;
+}
+//Delete from array
+#include<iostream>
+using namespace std;
+const int N = 10e3;
+void printArray(int LA[], int len){
+    for(int i =0; i<len; i++){
+        cout <<"LA["<<i<< "]: " << LA[i] << endl;
+    }
+    cout << endl;
+}
+int main(){
+    int LA[N];
+    int n;
+    cout << "Enter value of n: ";
+    cin >> n;
+    cout << "\nEnter the array element: ";
+    for(int i=0; i<n; i++){
+        cin >> LA[i];
+    }
+    cout << "\nThe array is: \n";
+    printArray(LA, n);
+    int index;
+    cout << "Enter the of index: ";
+    cin >> index;
+    for(int i = index; i < n-1; i++){
+        LA[i] = LA[i+1];
+    }
+    cout << "\nThe deleted array is: \n";
+    printArray(LA, n-1);
+
+}
+
+// Bubble sort
+#include<iostream>
+using namespace std;
+
+// To print the elements in the array.
+void traverse(int arr[], int n) {
+    
+  for (int i = 0; i < n; i++) {
+    cout << arr[i] << " ";
+  }
+  
+}
+
+// To perform bubble sort.
+void bubbleSort(int arr[], int n) {
+
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = i + 1; j < n - i - 1; j++) {
+        
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+int main() {
+ 
+  // Initializing an array to sort.
+  int arr[5] = {36, 2, 45, 25, 18}; 
+
+  // Length of the array.
+  int n = sizeof(arr) / sizeof(arr[0]);
+
+  // Printing the unsorted array.
+  cout << "Unsorted Array - \n";
+  traverse(arr, n);
+
+  // Calling the sorting function.
+  bubbleSort(arr, n);
+
+  // Printing array after sorting.
+  cout << "\nSorted Array - \n";
+  traverse(arr, n);
+
+  return 0;
+}
+
+
+// Merge sort in C++
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Merge function to merge two sorted arrays
+void merge(vector<int>& arr, int left, int mid, int right) {
+    // Create two subarrays from the original array
+    vector<int> left_half(arr.begin() + left, arr.begin() + mid + 1);
+    vector<int> right_half(arr.begin() + mid + 1, arr.begin() + right + 1);
+
+    // Set up three counters for the left half, right half, and the merged array
+    int i = 0, j = 0, k = left;
+
+    // Compare elements in the left and right halves and merge them into the original array
+    while (i < left_half.size() && j < right_half.size()) {
+        if (left_half[i] <= right_half[j]) {
+            arr[k] = left_half[i];
+            i++;
+        } else {
+            arr[k] = right_half[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy over any remaining elements in the left and right halves to the merged array
+    while (i < left_half.size()) {
+        arr[k] = left_half[i];
+        i++;
+        k++;
+    }
+
+    while (j < right_half.size()) {
+        arr[k] = right_half[j];
+        j++;
+        k++;
+    }
+}
+
+// Merge sort function to recursively sort an array
+void merge_sort(vector<int>& arr, int left, int right) {
+    if (left < right) {
+        // Calculate the middle index
+        int mid = (left + right) / 2;
+
+        // Recursively sort the left and right halves of the array
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
+
+        // Merge the sorted left and right halves
+        merge(arr, left, mid, right);
+    }
+}
+
+int main() {
+    // Example array to be sorted
+    vector<int> arr = {6, 5, 3, 1, 8, 7, 2, 4};
+
+    // Call merge_sort() on the array
+    merge_sort(arr, 0, arr.size() - 1);
+
+    // Print out the sorted array
+    for (int num : arr) {
+        cout << num << " ";
+    }
+
+    return 0;
+}
+
+// Insert in linkedlist
+#include <iostream>
+
+using namespace std;
+
+// Define the node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to insert a node at the beginning of the linked list
+void insertAtBeginning(Node*& head, int value) {
+    // Create a new node
+    Node* newNode = new Node;
+    newNode->data = value;
+    newNode->next = head;
+
+    // Update the head pointer
+    head = newNode;
+}
+
+// Function to insert a node at the end of the linked list
+void insertAtEnd(Node*& head, int value) {
+    // Create a new node
+    Node* newNode = new Node;
+    newNode->data = value;
+    newNode->next = nullptr;
+
+    // If the list is empty, set the head to the new node
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+
+    // Traverse to the end of the list and insert the new node
+    Node* curr = head;
+    while (curr->next != nullptr) {
+        curr = curr->next;
+    }
+    curr->next = newNode;
+}
+
+// Function to insert a node at a given index in the linked list
+void insertAtIndex(Node*& head, int value, int index) {
+    // Create a new node
+    Node* newNode = new Node;
+    newNode->data = value;
+
+    // If the index is 0, insert at the beginning of the list
+    if (index == 0) {
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    // Traverse to the node before the index and insert the new node
+    Node* curr = head;
+    for (int i = 0; i < index - 1 && curr != nullptr; i++) {
+        curr = curr->next;
+    }
+    if (curr == nullptr) {
+        cout << "Index out of range!" << endl;
+        return;
+    }
+    newNode->next = curr->next;
+    curr->next = newNode;
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    // Initialize the linked list
+    Node* head = nullptr;
+
+    // Insert nodes into the linked list
+    insertAtBeginning(head, 1);
+    insertAtEnd(head, 3);
+    insertAtIndex(head, 2, 1);
+
+    // Print the linked list
+    printList(head);
+
+    return 0;
+}
+
+// Delete form a node
+#include <iostream>
+
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() {
+        head = nullptr;
+    }
+
+    void insertAtBeginning(int value) {
+        Node* new_node = new Node(value);
+        new_node->next = head;
+        head = new_node;
+    }
+
+    void insertAtEnd(int value) {
+        Node* new_node = new Node(value);
+
+        if (head == nullptr) {
+            head = new_node;
+            return;
+        }
+
+        Node* curr = head;
+        while (curr->next != nullptr) {
+            curr = curr->next;
+        }
+        curr->next = new_node;
+    }
+
+    void deleteNode(int value) {
+        Node* curr = head;
+        Node* prev = nullptr;
+
+        while (curr != nullptr && curr->data != value) {
+            prev = curr;
+            curr = curr->next;
+        }
+
+        if (curr == nullptr) {
+            cout << "Node not found in the list!" << endl;
+            return;
+        }
+
+        if (prev == nullptr) {
+            head = curr->next;
+        } else {
+            prev->next = curr->next;
+        }
+
+        delete curr;
+    }
+
+    void printList() {
+        Node* curr = head;
+        while (curr != nullptr) {
+            cout << curr->data << " ";
+            curr = curr->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+
+    list.insertAtBeginning(1);
+    list.insertAtEnd(2);
+    list.insertAtEnd(3);
+    list.insertAtEnd(4);
+    list.insertAtEnd(5);
+
+    list.printList();
+
+    list.deleteNode(3);
+
+    list.printList();
+
+    list.deleteNode(1);
+
+    list.printList();
+
+    return 0;
+}
+
+// Binary Search
+#include <bits/stdc++.h>
+using namespace std;
+
+// A iterative binary search function. It returns
+// location of x in given array arr[l..r] if present,
+// otherwise -1
+int binarySearch(int arr[], int l, int r, int x)
+{
+	while (l <= r) {
+		int m = l + (r - l) / 2;
+
+		// Check if x is present at mid
+		if (arr[m] == x)
+			return m;
+
+		// If x greater, ignore left half
+		if (arr[m] < x)
+			l = m + 1;
+
+		// If x is smaller, ignore right half
+		else
+			r = m - 1;
+	}
+
+	// if we reach here, then element was
+	// not present
+	return -1;
+}
+
+int main(void)
+{
+	int arr[] = { 2, 3, 4, 10, 40 };
+	int x = 12;
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int result = binarySearch(arr, 0, n - 1, x);
+	(result == -1)
+		? cout << "Element is not present in array"
+		: cout << "Element is present at index " << result;
+	return 0;
+}
+
+// 0/1 Knapsack 
+#include<bits/stdc++.h>
+using namespace std;
+int T[100][10005];
+void knapsack(int n, int m, int weight[], int value[]){
+	for(int i = 0; i <= n; i++){
+		for(int j = 0; j <= m; j++){
+			if(i == 0 || j == 0) T[i][j] = 0;
+			else if(weight[i] <= j) {
+				T[i][j] = max(T[i-1][j], value[i] + T[i-1][j-weight[i]]);
+			}
+			else T[i][j] = T[i-1][j];
+		}
+	}
+
+}
+void getSelectedItem(int n, int m, int weight[], int value[], std::vector<int> &selectedItem){
+	while(n > 0 && m > 0){
+		if(T[n][m] != T[n-1][m]){
+			selectedItem.push_back(weight[n]);
+			// cout << "m: " << m << " weight " << weight[n] << endl;
+			m = m - weight[n];
+
+		}
+		n--;
+	}
+	reverse(selectedItem.begin(), selectedItem.end());
+}
+
+
+int main(){
+	int n, m;
+	cin >> n >> m;
+	int weight[n+1], value[n+1];
+	weight[0] = 0;
+	value[0] = 0;
+	for(int i = 1; i <= n; i++){
+		cin >> weight[i] >> value[i];
+	}
+	knapsack(n, m, weight, value);
+	std::vector<int> selectedItem;
+	cout << "Maximum Profit: " << T[n][m] << endl;
+	getSelectedItem(n, m, weight, value, selectedItem);
+	for(int i =1; i <=selectedItem.size(); i++){
+			cout << "Selected Item :" << " Weight: " << weight[i] << endl;
+	}
+}
+
+// Job schedule jobs
+#include<bits/stdc++.h>
+using namespace std;
+void schedule_jobs(vector<pair<int, pair<int, int>>> jobs){
+	int n = jobs.size();
+	sort(jobs.rbegin(), jobs.rend());
+	vector<int> result(n, -1);
+	vector<bool> slots(n, false);
+	int profit = 0;
+	for(int i =0; i<n; i++){
+		for(int j = min(n, jobs[i].second.second) -1; j >=0; j--){
+			if(!slots[j]){
+				slots[j] = true;
+				result[j] = jobs[i].second.first;
+				profit += jobs[i].first;
+				break;
+			}
+		}
+	}
+	cout << "Job Schedule: ";
+	for(int i=0; i<n; i++){
+		if(result[i] != -1){
+			cout << result[i] << " ";
+		}
+	}
+	cout << "\nTotal Profit: " << profit;
+}
+int main(){
+	int n;
+	cin >> n;
+	vector<pair<int, pair<int, int>>> jobs;
+
+	for(int i=0; i<n; i++){
+		int id, deadline, profit;
+		cin >> id >> deadline >> profit;
+		jobs.push_back({profit, {id, deadline}});
+	}
+	schedule_jobs(jobs);
+}
+
+// Minimum spanning tree
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e5+6;
+vector<int> parent(N);
+vector<int> size(N);
+void make_parent(int v){
+	parent[v] = v;
+	size[v] = 1;
+}
+int find_set(int v){
+	if(v == parent[v]) return v;
+	return parent[v] = find_set(parent[v]);
+} 
+void Union(int a, int b){
+	a = find_set(a);
+	b = find_set(b);
+	if(a != b) {
+		if(size[a] < size[b])
+			swap(a, b);
+		parent[b] = a;
+		size[a] += size[b];
+	}
+}
+
+int main(){
+	int n, m;
+	cin >> n >> m;
+	vector<pair<int, pair<int, int>>> edges;
+	for(int i=0; i<m; i++){
+		int u, v, wt;
+		cin >> u >> v >> wt;
+		edges.push_back({wt, {u,v}});
+	}
+	for(int i = 0; i < n; i++){
+		make_parent(i);
+	}
+	sort(edges.begin(), edges.end());
+	int total_cost = 0;
+	for(auto &edge: edges){
+		int wt = edge.first;
+		int u = edge.second.first;
+		int v = edge.second.second;
+		if(find_set(u) == find_set(v)) continue;
+		Union(u, v);
+		total_cost += wt;
+		cout << u << " " << v << endl;
+	}
+	cout << "Total cost: " << total_cost; 
+}
+
+//Multistage graph
+#include <iostream>
+#include <limits.h>
+using namespace std;
+const int INF = INT_MAX;
+
+//function for finding shortest distance and path
+int Source_to_Sink(int MG[][9], int n, int pred[])
+{
+    int Distance[n];
+
+    // Initialize distances from the last node to n-1 node as 0
+    Distance[n-1] = 0;
+    pred[n-1] = -1;
+
+    // Finding the shortest paths
+    for (int x = n-2; x >= 0; x--) 
+    {
+        Distance[x] = INF;
+        // Checking nodes from next stages 
+        for (int y = x; y < n; y++) 
+        {
+            // condition when no edge exists  
+            if (MG[x][y] == INF) 
+                continue;
+            // finding minimum distances
+            if (Distance[x] > MG[x][y] + Distance[y])
+            {
+                Distance[x] = MG[x][y] + Distance[y];
+                pred[x] = y;
+            }
+        } 
+    }
+    return Distance[0];
+}
+
+//function to print the path
+void PrintPath(int pred[], int n)
+{
+    int path[n];
+    int i = 0;
+    int curr = 0;
+    path[i++] = curr;
+
+    // Backtracking to find the path
+    while (curr != n-1)
+    {
+        curr = pred[curr];
+        path[i++] = curr;
+    }
+
+    // Printing the path
+    cout << "Path: ";
+    for (int j = i-1; j >= 0; j--)
+    {
+        cout << path[j] << " ";
+    }
+    cout << endl;
+}
+
+// Driver code  
+int main() 
+{
+    int n = 9;
+
+    // Adjacency matrix for graph
+    int MG[9][9] = { { INF, 10, 5, INF, INF, INF, INF, INF, INF },
+                     { INF, INF, INF, 1, INF, 2, INF, INF, INF },
+                     { INF, INF, INF, 8, 4, 7, INF, INF, INF },
+                     { INF, INF, INF, INF, INF, INF, 5, 3, INF },
+                     { INF, INF, INF, INF, INF, INF, 6, 9, INF },
+                     { INF, INF, INF, INF, INF, INF, 11, 15, INF },
+                     { INF, INF, INF, INF, INF, INF, INF, INF, 4 },
+                     { INF, INF, INF, INF, INF, INF, INF, INF, 7 } };
+
+    int pred[n];
+    int D = Source_to_Sink(MG, n, pred);
+
+    cout << "Shortest distance from source to sink is: " << D << endl;
+    PrintPath(pred, n);
+    return 0;
+}
+//floyd Warshall's
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+#define INF 1000000
+
+int dist[100][100];
+
+void floydWarshall(int n) {
+    // Initialize the distance matrix
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (i == j) {
+                dist[i][j] = 0;
+            } else {
+                dist[i][j] = INF;
+            }
+        }
+    }
+
+    // Input the edges and their weights
+    int m;
+    cin >> m;
+    for (int i = 1; i <= m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        dist[u][v] = w;
+    }
+
+    // Run the Floyd-Warshall algorithm
+    for (int k = 1; k <= n; k++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+
+    // Print the distance matrix
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (dist[i][j] == INF) {
+                cout << "INF" << " ";
+            } else {
+                cout << dist[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    floydWarshall(n);
+
+    return 0;
+}
+
+
+
+// N queen
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e3+6;
+int B[N][N];
+bool isSafe(int x, int y, int n){
+	for(int row = 0; row < x; row++){
+		if(B[row][y] == 1){
+			return false;
+		}
+	}
+	for(int col = 0; col < y; col++){
+		if(B[x][col] == 1){
+			return false;
+		}
+	}
+	int row = x;
+	int col = y;
+	while(row >= 0 && col >= 0){
+		if(B[row][col] == 1){
+			return false;
+		}
+		row--;
+		col--;
+	}
+	row = x;
+	col = y;
+	while(row >= 0 && col < n){
+		if(B[row][col] == 1){
+			return false;
+		}
+		row--;
+		col++;
+	}
+	return true;
+}
+bool nQueen(int x, int n){
+	if(x >= n){
+		return true;
+	}
+	for(int col = 0; col < n; col++){
+		if(isSafe(x, col, n)){
+			B[x][col] = 1;
+
+			if(nQueen(x+1, n)){
+				return true;
+			}
+			B[x][col] = 0;
+		}
+	}
+	return false;
+}
+
+int main(){
+	int n;
+	cin >> n;
+	nQueen(0, n);
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++){
+			cout << B[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
